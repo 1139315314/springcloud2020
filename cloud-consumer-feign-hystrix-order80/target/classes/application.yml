@@ -1,0 +1,47 @@
+server:
+  port: 80
+
+
+eureka:
+  client:
+    register-with-eureka: true    #表识不向注册中心注册自己
+    fetch-registry: true   #表示自己就是注册中心，职责是维护服务实例，并不需要去检索服务
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+
+spring:
+  application:
+    name: cloud-consumer-hystrix-order
+
+
+
+feign:
+  #修改fegin等待时间，feign自带的ribbon默认只等待1s
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+  #消费端开启hystrix
+  hystrix:
+    enabled: true    #feign自带的hystrix，自带的hystrix限时1s就服务降级 ,可以自己改
+
+# 使用业务方法和服务降级方法分离的话，通过配置文件来配置hystrix超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000  #hystrix超时时间
+    getProductInfoList:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+
+
+
+
+
