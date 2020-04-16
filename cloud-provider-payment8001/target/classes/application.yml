@@ -11,13 +11,18 @@ spring:
     url: jdbc:mysql://47.115.13.115:3306/cloud2020?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: root
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+    probability: 1
 
 eureka:
   client:
     register-with-eureka: true
     fetchRegistry: true
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://eureka7001.com:7001/eureka #,http://eureka7002.com:7002/eureka
   instance:
     instance-id: payment8001  #服务名称修改
     prefer-ip-address: true   #是否显示IP
